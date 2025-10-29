@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # almalinux 安装 Docker
 
 # 1. 安装依赖
