@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source _install_nginx_stylish_fonts.sh || echo 'style not found'
+source "style\get_nginx_style.sh" || echo 'style not found'
 
 # 可修改参数
 CONF_NAME="nginx.conf"
