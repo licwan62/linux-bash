@@ -2,7 +2,7 @@ name: Mirror to Gitee
 
 on:
   push:
-    branches: [ main, master ]  # 你要同步的分支
+    branches: [ main ]
 
 jobs:
   sync:
@@ -12,8 +12,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Mirror to Gitee
-        run: |
-          git remote add gitee https://gitee.com/leex0062/linux-bash.git
-          git push -f gitee main
         env:
           GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+        run: |
+          git remote add gitee https://licwan62:${GITEE_TOKEN}@gitee.com/leex0062/linux-bash.git
+          git push -f gitee main
+        
