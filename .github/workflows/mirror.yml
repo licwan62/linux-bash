@@ -7,9 +7,12 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout full history
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # ✅ 关键，防止 shallow update 错误
 
       - name: Mirror to Gitee
         env:
@@ -17,4 +20,3 @@ jobs:
         run: |
           git remote add gitee https://leex0062:${GITEE_TOKEN}@gitee.com/leex0062/linux-bash.git
           git push -f gitee main
-        
