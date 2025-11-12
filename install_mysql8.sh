@@ -23,12 +23,20 @@ fi
 # 🧩 获取用户输入密码
 # -------------------------------
 if [[ "$MODE" == "server" ]]; then
-  echo -n "🔑 请输入要设置的 MySQL root 密码（建议包含大小写字母+数字+符号）: "
-  read -s NEW_PWD
-  echo
-  echo -n "🔁 请再次输入确认密码: "
-  read -s CONFIRM_PWD
-  echo
+
+  # 安全交互：尝试从 /dev/tty 读取（兼容 curl | bash）
+  if [ -r /dev/tty ]; then
+    echo -n "🔑 请输入 MySQL root 密码: " >/dev/tty
+    read -s NEW_PWD </dev/tty
+    echo >/dev/tty
+    echo -n "🔁 请再次输入确认密码: " >/dev/tty
+    read -s CONFIRM_PWD </dev/tty
+    echo >/dev/tty
+  else
+    echo "⚠️ 无可用的 /dev/tty，无法交互式输入。请使用 --password 参数或先下载脚本再运行。" >&2
+    exit 1
+  fi
+
   if [[ "$NEW_PWD" != "$CONFIRM_PWD" ]]; then
     echo "❌ 两次输入的密码不一致，请重新运行脚本。"
     exit 1
