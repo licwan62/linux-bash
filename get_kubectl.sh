@@ -5,4 +5,6 @@ chmod +x kubectl
 mv kubectl  /usr/bin/
 
 # 测试
-kubectl get ns
+kubectl config current-context
+kubectl cluster-info
+
